@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox as mb
 
-win = Tk()
+win = tk.Tk()
 
 mylabel = Label(win , text = "名前を入力してください")
 mylabel.pack()
