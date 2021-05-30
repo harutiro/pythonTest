@@ -18,7 +18,7 @@ class Block :
 
     def draw(self):
         s = 25
-        square=canvas.create_rectangle(s*self.x , s*self.y , s, s ,fill='red')#四角
+        square=canvas.create_rectangle(s*self.x , s*self.y , self.x*s+s, self.y*s+s ,fill='red')#四角
 
 
 
@@ -105,9 +105,19 @@ class Game :
 
 
 game = Game()
-while True:
-    game.proc()
-    time.sleep(0.016) #0.02秒ずつ更新
+
+Block(1,1).draw()
+Block(2,1).draw()
+Block(2,2).draw()
+Block(2,3).draw()
+
+
+
+# while True:
+
+    
+    # game.proc()
+    # time.sleep(0.016) #0.02秒ずつ更新
 
 
 root.mainloop()
