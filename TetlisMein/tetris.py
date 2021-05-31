@@ -51,6 +51,9 @@ class Mino:
             b.y += self.y
             b.draw()
 
+    def copy(self):
+        return Mino(self.x, self.y, self.rot, self.shape)
+
 
 
 class Field:
@@ -91,18 +94,60 @@ class Field:
     def tileAt(self,x,y):
         return self.tiles[y][x]
 
-class Game :
-    def __init__ (self):
+class Game(tk.Frame) :
+    def __init__ (self,master = None):
+        super().__init__(master)
+        self.master = master
+
+        self.minoVx = 0
         self.mino = Mino(5,10,0,0)
         self.field = Field()
         self.fc = 0
 
+        self.master.bind("<Left>",self.leftController) #左矢印キー
+        self.master.bind("<Right>",self.rightController) #右矢印キー
+        # self.master.bind("<Down>",self.downController) #下矢印キー
+
+    def isMinoMovable(self, mino, field):
+        blocks = mino.calcBlocks()
+        return all( field.tileAt(b.x,b.y) == 0 for b in blocks)
+
     def proc(self):
+
+        if(self.minoVx != 0):
+            futureMino = self.mino.copy()
+            futureMino.x += self.minoVx
+            game = Game
+            if(game.isMinoMovable(futureMino)):
+                self.mino.x += self.minoVx
+
+            self.minoVx = 0
+
+        canvas.delete("all")
         self.mino.draw()
         self.field.draw()
         self.fc += 1
 
-        root.after(1000,game.proc())
+        self.after(16,self.proc)
+
+    def leftController(self,event): #左矢印キーが押されたら
+        self.minoVx = -1
+
+    def rightController(self,event): #右矢印キーが押されたら
+        self.minoVx = 1
+
+    # def downController(self,event): #下矢印キーが押されたら
+        
+
+
+
+
+
+
+
+
+
+
 
 
 #ウインドを作成
@@ -114,11 +159,13 @@ canvas=tk.Canvas(root,width=400,height=600,bg="white")
 canvas.pack()
 
 
-game = Game()
+game = Game(master = root)
+game.proc()
 
-Mino(4,15,3,0).draw()
 
-root.after(1000,game.proc())
+# Mino(4,15,3,0).draw()
+
+# root.after(1000,game.proc())
 
 
 
