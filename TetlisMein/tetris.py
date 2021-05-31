@@ -2,13 +2,7 @@ import tkinter as tk
 from tkinter.constants import Y
 import time
 
-#ウインドを作成
-root=tk.Tk()
-root.geometry('400x600')
-root.title('Tetlis')
 
-canvas=tk.Canvas(root,width=400,height=600,bg="white")
-canvas.pack()
 
 class Block :
     
@@ -108,18 +102,26 @@ class Game :
         self.field.draw()
         self.fc += 1
 
+        root.after(1000,game.proc())
+
+
+#ウインドを作成
+root=tk.Tk()
+root.geometry('400x600')
+root.title('Tetlis')
+
+canvas=tk.Canvas(root,width=400,height=600,bg="white")
+canvas.pack()
+
 
 game = Game()
 
 Mino(4,15,3,0).draw()
 
+root.after(1000,game.proc())
 
 
-# while True:
 
-    
-    # game.proc()
-    # time.sleep(0.016) #0.02秒ずつ更新
 
 
 root.mainloop()
