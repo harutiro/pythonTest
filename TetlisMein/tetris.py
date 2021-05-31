@@ -30,7 +30,7 @@ class Mino:
         self.rot = rot
         self.shape = shape
 
-    def calcBlocks(self):
+    def calcBlocks(self) -> list:
         blocks = [
             Block(-1,0),
             Block(0,0),
@@ -38,19 +38,24 @@ class Mino:
             Block(1,0),
         ]
 
+        
+
         rot = (40000000 + self.rot) % 4
 
         for r in range(rot):
-            for b in blocks:
-                Block(-b.y,b.x)
+            for i,b in enumerate(blocks):
+                blocks[i] = Block(-b.y,b.x)
+
+        return blocks
 
     def draw(self):
-        blocks = Mino
 
-        for b in blocks.calcBlocks:
+        blocks = self.calcBlocks()
+
+        for b in blocks:
             b.x += self.x
             b.y += self.y
-            b.drow()
+            b.draw()
 
 
 
@@ -82,7 +87,7 @@ class Field:
         ]
 
     def draw(self):
-        for y in range(21):
+        for y in range(22):
             for x in range(12):
                 if self.tileAt(x,y) == 0:
                     continue
@@ -106,10 +111,7 @@ class Game :
 
 game = Game()
 
-Block(1,1).draw()
-Block(2,1).draw()
-Block(2,2).draw()
-Block(2,3).draw()
+Mino(4,15,3,0).draw()
 
 
 
