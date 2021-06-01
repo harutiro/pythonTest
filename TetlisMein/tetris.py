@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter.constants import Y
-import time
+import random
 
 
 
@@ -25,12 +25,25 @@ class Mino:
         self.shape = shape
 
     def calcBlocks(self) -> list:
-        blocks = [
-            Block(-1,0),
-            Block(0,0),
-            Block(0,-1),
-            Block(1,0),
-        ]
+        blocks = []
+
+        print(self.shape)
+
+        if(self.shape == 0):
+            blocks = [Block(-1,0),Block(0,0),Block(0,-1),Block(1,0),]
+        elif(self.shape == 1):
+            blocks = [Block(-1,-1),Block(0,-1),Block(0,0),Block(1,0),]
+        elif(self.shape == 2):
+            blocks = [Block(-1,0),Block(0,0),Block(0,-1),Block(1,-1),]
+        elif(self.shape == 3):
+            blocks = [Block(-1,-2),Block(-1,-1),Block(-1,0),Block(0,0),]
+        elif(self.shape == 4):
+            blocks = [Block(0,-2),Block(0,-1),Block(-1,0),Block(0,0),]
+        elif(self.shape == 5):
+            blocks = [Block(-1,-1),Block(-1,0),Block(0,0),Block(0,-1),]
+        elif(self.shape == 6):
+            blocks = [Block(-2,0),Block(-1,0),Block(0,0),Block(1,0),]
+        
 
         
 
@@ -103,7 +116,7 @@ class Game(tk.Frame) :
 
         self.minoVx = 0
         self.minoVr = 0
-        self.mino = Mino(5,10,0,0)
+        self.mino = self.makeMino()
         self.field = Field()
         self.fc = 0
 
@@ -112,6 +125,9 @@ class Game(tk.Frame) :
         self.master.bind("<Key-e>",self.eKeyController) 
         self.master.bind("<Key-q>",self.qKeyController) 
         # self.master.bind("<Down>",self.downController) #下矢印キー
+
+    def makeMino(self):
+        return Mino(5,10,0,random.randint(0,6))
 
     def isMinoMovable(self, mino, field):
         blocks = mino.calcBlocks()
@@ -142,7 +158,7 @@ class Game(tk.Frame) :
                 for b in self.mino.calcBlocks():
                     self.field.putBlock(b.x + self.mino.x, b.y + self.mino.y)
                     
-                self.mino = Mino(5,10,0,0)
+                self.mino = self.makeMino()
 
         # 横操作
         if(self.minoVx != 0):
