@@ -110,20 +110,30 @@ class Game(tk.Frame) :
 
     def isMinoMovable(self, mino, field):
         blocks = mino.calcBlocks()
-        print("Go")
+        
+        # print(mino.x)
+        # print(mino.y)
 
         # BAG: Falseしか出ない。
-        return all( field.tileAt(b.x,b.y) == 0 for b in blocks)
+        # for b in blocks:
+            # print("x" + str(b.x))
+            # print("y" + str(b.y))
+            # print(field.tileAt(b.x,b.y))
+            
+        return all( field.tileAt(b.x + mino.x, b.y + mino) == 0 for b in blocks)
 
     def proc(self):
 
         if(self.minoVx != 0):
             futureMino = self.mino.copy()
             futureMino.x += self.minoVx
+
+            # print(futureMino.x)
+            # print(futureMino.y)
             game = Game
-            print("Redy")
+            Debag.hyouzi(self,self.field)
+
             if(game.isMinoMovable(self,futureMino,self.field)):
-                print("OK")
                 self.mino.x += self.minoVx
 
             self.minoVx = 0
@@ -143,6 +153,17 @@ class Game(tk.Frame) :
 
     # def downController(self,event): #下矢印キーが押されたら
         
+
+class Debag ():
+
+    def hyouzi(self,field):
+
+        for y in range(22):
+            for x in range(12):
+                print(field.tileAt(x,y) , end = "")
+            
+            print()
+    
 
 
 
