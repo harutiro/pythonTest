@@ -139,6 +139,7 @@ class Game(tk.Frame) :
         self.fc = 0
 
         self.speed = 0
+        self.kotei = 0
 
         self.master.bind("<Left>",self.leftController) #左矢印キー
         self.master.bind("<Right>",self.rightController) #右矢印キー
@@ -174,11 +175,17 @@ class Game(tk.Frame) :
 
             if(self.isMinoMovable(futureMino,self.field)):
                 self.mino.y += 1
-            else:
-                for b in self.mino.calcBlocks():
-                    self.field.putBlock(b.x + self.mino.x, b.y + self.mino.y)
-                    
-                self.mino = self.makeMino()
+            else:#固定化
+                if self.kotei == 2:
+                    for b in self.mino.calcBlocks():
+                        self.field.putBlock(b.x + self.mino.x, b.y + self.mino.y)
+
+                    self.mino = self.makeMino()
+                    self.kotei = 0
+
+                else:
+                    self.kotei += 1
+
 
             # 消去
             
