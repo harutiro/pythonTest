@@ -120,7 +120,7 @@ class Game(tk.Frame) :
             # print("y" + str(b.y))
             # print(field.tileAt(b.x,b.y))
             
-        return all( field.tileAt(b.x + mino.x, b.y + mino) == 0 for b in blocks)
+        return all( field.tileAt(b.x + mino.x , b.y + mino.y) == 0 for b in blocks)
 
     def proc(self):
 
