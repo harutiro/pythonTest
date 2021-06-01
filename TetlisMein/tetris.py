@@ -124,16 +124,16 @@ class Game(tk.Frame) :
 
     def proc(self):
 
+        
         if(self.minoVx != 0):
             futureMino = self.mino.copy()
             futureMino.x += self.minoVx
 
             # print(futureMino.x)
             # print(futureMino.y)
-            game = Game
             Debag.hyouzi(self,self.field)
 
-            if(game.isMinoMovable(self,futureMino,self.field)):
+            if(self.isMinoMovable(futureMino,self.field)):
                 self.mino.x += self.minoVx
 
             self.minoVx = 0
