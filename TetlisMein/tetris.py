@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter.constants import Y
 import random
+import numpy as np
+# pip install numpy
 
 
 
@@ -27,7 +29,7 @@ class Mino:
     def calcBlocks(self) -> list:
         blocks = []
 
-        print(self.shape)
+        # print(self.shape)
 
         if(self.shape == 0):
             blocks = [Block(-1,0),Block(0,0),Block(0,-1),Block(1,0),]
@@ -105,6 +107,21 @@ class Field:
     
     def putBlock(self, x, y):
         self.tiles[y][x] = 1
+
+    def findLineFilled(self):
+        for y in range(21):
+            print(self.tiles[y])
+            isFilled = all( t == 1 for t in self.tiles[y])
+            if isFilled :
+                return y
+        return -1
+
+    def cutLine(self, y):
+        self.tiles = np.delete(self.tiles, y, 0)
+        self.tiles = np.insert(self.tiles , 0, [1,0,0,0,0,0,1,0,0,0,0,1] , axis=0)
+
+        print(self.tiles)
+
     
     def tileAt(self,x,y):
         return self.tiles[y][x]
@@ -116,9 +133,12 @@ class Game(tk.Frame) :
 
         self.minoVx = 0
         self.minoVr = 0
+        self.minoDrop = False
         self.mino = self.makeMino()
         self.field = Field()
         self.fc = 0
+
+        self.speed = 0
 
         self.master.bind("<Left>",self.leftController) #左矢印キー
         self.master.bind("<Right>",self.rightController) #右矢印キー
@@ -146,11 +166,11 @@ class Game(tk.Frame) :
     def proc(self):
 
         # 落下
-        if(self.fc %20 == 19):
+        if(self.minoDrop or self.fc %20 == 19):
             futureMino = self.mino.copy()
             futureMino.y += 1
 
-            Debag.hyouzi(self,self.field)
+            # Debag.hyouzi(self,self.field)
 
             if(self.isMinoMovable(futureMino,self.field)):
                 self.mino.y += 1
@@ -159,6 +179,14 @@ class Game(tk.Frame) :
                     self.field.putBlock(b.x + self.mino.x, b.y + self.mino.y)
                     
                 self.mino = self.makeMino()
+
+            # 消去
+            
+            while self.field.findLineFilled() != -1:
+                
+                self.field.cutLine(self.field.findLineFilled())
+            self.minoDrop = False
+
 
         # 横操作
         if(self.minoVx != 0):
@@ -181,7 +209,7 @@ class Game(tk.Frame) :
 
             # print(futureMino.x)
             # print(futureMino.y)
-            Debag.hyouzi(self,self.field)
+            # Debag.hyouzi(self,self.field)
 
             if(self.isMinoMovable(futureMino,self.field)):
                 self.mino.rot += self.minoVr
@@ -193,7 +221,16 @@ class Game(tk.Frame) :
         self.field.draw()
         self.fc += 1
 
-        self.after(16,self.proc)
+        print(self.speed)
+
+        global jobid
+        jobid = self.after(8, self.proc)
+
+
+        
+        
+
+        
 
     def leftController(self,event): #左矢印キーが押されたら
         self.minoVx = -1
@@ -226,7 +263,7 @@ class Debag ():
 
 
 
-
+jobid = None
 
 
 
