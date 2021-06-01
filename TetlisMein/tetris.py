@@ -110,7 +110,7 @@ class Field:
 
     def findLineFilled(self):
         for y in range(21):
-            print(self.tiles[y])
+            # print(self.tiles[y])
             isFilled = all( t == 1 for t in self.tiles[y])
             if isFilled :
                 return y
@@ -202,7 +202,7 @@ class Game(tk.Frame) :
 
             # print(futureMino.x)
             # print(futureMino.y)
-            Debag.hyouzi(self,self.field)
+            # Debag.hyouzi(self,self.field)
 
             if(self.isMinoMovable(futureMino,self.field)):
                 self.mino.x += self.minoVx
@@ -228,7 +228,7 @@ class Game(tk.Frame) :
         self.field.draw()
         self.fc += 1
 
-        print(self.speed)
+        # print(self.speed)
 
         global jobid
         jobid = self.after(8, self.proc)
