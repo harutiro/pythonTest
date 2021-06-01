@@ -90,6 +90,8 @@ class Field:
                     continue
                 Block(x,y).draw()
     
+    def putBlock(self, x, y):
+        self.tiles[y][x] = 1
     
     def tileAt(self,x,y):
         return self.tiles[y][x]
@@ -100,12 +102,15 @@ class Game(tk.Frame) :
         self.master = master
 
         self.minoVx = 0
+        self.minoVr = 0
         self.mino = Mino(5,10,0,0)
         self.field = Field()
         self.fc = 0
 
         self.master.bind("<Left>",self.leftController) #左矢印キー
         self.master.bind("<Right>",self.rightController) #右矢印キー
+        self.master.bind("<Key-e>",self.eKeyController) 
+        self.master.bind("<Key-q>",self.qKeyController) 
         # self.master.bind("<Down>",self.downController) #下矢印キー
 
     def isMinoMovable(self, mino, field):
@@ -124,7 +129,22 @@ class Game(tk.Frame) :
 
     def proc(self):
 
-        
+        # 落下
+        if(self.fc %20 == 19):
+            futureMino = self.mino.copy()
+            futureMino.y += 1
+
+            Debag.hyouzi(self,self.field)
+
+            if(self.isMinoMovable(futureMino,self.field)):
+                self.mino.y += 1
+            else:
+                for b in self.mino.calcBlocks():
+                    self.field.putBlock(b.x + self.mino.x, b.y + self.mino.y)
+                    
+                self.mino = Mino(5,10,0,0)
+
+        # 横操作
         if(self.minoVx != 0):
             futureMino = self.mino.copy()
             futureMino.x += self.minoVx
@@ -138,6 +158,20 @@ class Game(tk.Frame) :
 
             self.minoVx = 0
 
+        # 回転
+        if(self.minoVr != 0):
+            futureMino = self.mino.copy()
+            futureMino.rot += self.minoVr
+
+            # print(futureMino.x)
+            # print(futureMino.y)
+            Debag.hyouzi(self,self.field)
+
+            if(self.isMinoMovable(futureMino,self.field)):
+                self.mino.rot += self.minoVr
+
+            self.minoVr = 0
+
         canvas.delete("all")
         self.mino.draw()
         self.field.draw()
@@ -150,6 +184,12 @@ class Game(tk.Frame) :
 
     def rightController(self,event): #右矢印キーが押されたら
         self.minoVx = 1
+
+    def eKeyController(self,event):
+        self.minoVr = 1
+    
+    def qKeyController(self,event):
+        self.minoVr = -1
 
     # def downController(self,event): #下矢印キーが押されたら
         
