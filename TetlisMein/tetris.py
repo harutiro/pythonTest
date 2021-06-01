@@ -111,6 +111,8 @@ class Game(tk.Frame) :
     def isMinoMovable(self, mino, field):
         blocks = mino.calcBlocks()
         print("Go")
+
+        # BAG: Falseしか出ない。
         return all( field.tileAt(b.x,b.y) == 0 for b in blocks)
 
     def proc(self):
