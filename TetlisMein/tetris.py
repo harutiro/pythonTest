@@ -110,6 +110,7 @@ class Game(tk.Frame) :
 
     def isMinoMovable(self, mino, field):
         blocks = mino.calcBlocks()
+        print("Go")
         return all( field.tileAt(b.x,b.y) == 0 for b in blocks)
 
     def proc(self):
@@ -118,7 +119,9 @@ class Game(tk.Frame) :
             futureMino = self.mino.copy()
             futureMino.x += self.minoVx
             game = Game
-            if(game.isMinoMovable(futureMino)):
+            print("Redy")
+            if(game.isMinoMovable(self,futureMino,self.field)):
+                print("OK")
                 self.mino.x += self.minoVx
 
             self.minoVx = 0
