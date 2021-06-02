@@ -6,15 +6,17 @@ import numpy as np
 
 
 
+
 class Block :
     
-    def __init__(self,x,y):
+    def __init__(self,x,y,iro):
         self.x = x
         self.y = y
+        self.iro = iro
 
     def draw(self):
         s = 25
-        square=canvas.create_rectangle(s*self.x , s*self.y , self.x*s+s, self.y*s+s ,fill='red')#四角
+        square=canvas.create_rectangle(s*self.x , s*self.y , self.x*s+s, self.y*s+s , fill=self.iro, width = 0)#四角
 
 
 
@@ -32,19 +34,19 @@ class Mino:
         # print(self.shape)
 
         if(self.shape == 0):
-            blocks = [Block(-1,0),Block(0,0),Block(0,-1),Block(1,0),]
+            blocks = [Block(-1,0,"#6830D1"),Block(0,0,"#6830D1"),Block(0,-1,"#6830D1"),Block(1,0,"#6830D1"),] #T
         elif(self.shape == 1):
-            blocks = [Block(-1,-1),Block(0,-1),Block(0,0),Block(1,0),]
+            blocks = [Block(-1,-1,"#AF2546"),Block(0,-1,"#AF2546"),Block(0,0,"#AF2546"),Block(1,0,"#AF2546"),] #z
         elif(self.shape == 2):
-            blocks = [Block(-1,0),Block(0,0),Block(0,-1),Block(1,-1),]
+            blocks = [Block(-1,0,"#01A493"),Block(0,0,"#01A493"),Block(0,-1,"#01A493"),Block(1,-1,"#01A493"),] #s
         elif(self.shape == 3):
-            blocks = [Block(-1,-2),Block(-1,-1),Block(-1,0),Block(0,0),]
+            blocks = [Block(-1,-2,"#FE9925"),Block(-1,-1,"#FE9925"),Block(-1,0,"#FE9925"),Block(0,0,"#FE9925"),] #L
         elif(self.shape == 4):
-            blocks = [Block(0,-2),Block(0,-1),Block(-1,0),Block(0,0),]
+            blocks = [Block(0,-2,"#264D86"),Block(0,-1,"#264D86"),Block(-1,0,"#264D86"),Block(0,0,"#264D86"),] #J
         elif(self.shape == 5):
-            blocks = [Block(-1,-1),Block(-1,0),Block(0,0),Block(0,-1),]
+            blocks = [Block(-1,-1,"#F8DA00"),Block(-1,0,"#F8DA00"),Block(0,0,"#F8DA00"),Block(0,-1,"#F8DA00"),] #o
         elif(self.shape == 6):
-            blocks = [Block(-2,0),Block(-1,0),Block(0,0),Block(1,0),]
+            blocks = [Block(-2,0,"#0094B0"),Block(-1,0,"#0094B0"),Block(0,0,"#0094B0"),Block(1,0,"#0094B0"),] #I
         
 
         
@@ -53,7 +55,7 @@ class Mino:
 
         for r in range(rot):
             for i,b in enumerate(blocks):
-                blocks[i] = Block(-b.y,b.x)
+                blocks[i] = Block(-b.y,b.x,b.iro)
 
         return blocks
 
@@ -103,7 +105,7 @@ class Field:
             for x in range(12):
                 if self.tileAt(x,y) == 0:
                     continue
-                Block(x,y).draw()
+                Block(x,y,"#232F93").draw()
     
     def putBlock(self, x, y):
         self.tiles[y][x] = 1
@@ -118,7 +120,7 @@ class Field:
 
     def cutLine(self, y):
         self.tiles = np.delete(self.tiles, y, 0)
-        self.tiles = np.insert(self.tiles , 0, [1,0,0,0,0,0,1,0,0,0,0,1] , axis=0)
+        self.tiles = np.insert(self.tiles , 0, [1,0,0,0,0,0,0,0,0,0,0,1] , axis=0)
 
         print(self.tiles)
 
