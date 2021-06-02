@@ -4,7 +4,28 @@ import random
 import numpy as np
 # pip install numpy
 
+class iro :
 
+    # def __init__(self,iro):
+    #     self.iro = iro
+
+    def senClore(self,iro):
+        if iro == 0:
+            return "#6830D1"
+        elif iro == 1:
+            return iro.senClore(self,self.shape)
+        elif iro == 2:
+            return iro.senClore(self,self.shape)
+        elif iro == 3:
+            return iro.senClore(self,self.shape)
+        elif iro == 4:
+            return iro.senClore(self,self.shape)
+        elif iro == 5:
+            return iro.senClore(self,self.shape)
+        elif iro == 6:
+            return iro.senClore(self,self.shape)
+        elif iro == 20:
+            return "#232F93"
 
 
 class Block :
@@ -34,19 +55,19 @@ class Mino:
         # print(self.shape)
 
         if(self.shape == 0):
-            blocks = [Block(-1,0,"#6830D1"),Block(0,0,"#6830D1"),Block(0,-1,"#6830D1"),Block(1,0,"#6830D1"),] #T
+            blocks = [Block(-1,0,iro.senClore(self,self.shape)),Block(0,0,iro.senClore(self,self.shape)),Block(0,-1,iro.senClore(self,self.shape)),Block(1,0,iro.senClore(self,self.shape)),] #T
         elif(self.shape == 1):
-            blocks = [Block(-1,-1,"#AF2546"),Block(0,-1,"#AF2546"),Block(0,0,"#AF2546"),Block(1,0,"#AF2546"),] #z
+            blocks = [Block(-1,-1,iro.senClore(self,self.shape)),Block(0,-1,iro.senClore(self,self.shape)),Block(0,0,iro.senClore(self,self.shape)),Block(1,0,iro.senClore(self,self.shape)),] #z
         elif(self.shape == 2):
-            blocks = [Block(-1,0,"#01A493"),Block(0,0,"#01A493"),Block(0,-1,"#01A493"),Block(1,-1,"#01A493"),] #s
+            blocks = [Block(-1,0,iro.senClore(self,self.shape)),Block(0,0,iro.senClore(self,self.shape)),Block(0,-1,iro.senClore(self,self.shape)),Block(1,-1,iro.senClore(self,self.shape)),] #s
         elif(self.shape == 3):
-            blocks = [Block(-1,-2,"#FE9925"),Block(-1,-1,"#FE9925"),Block(-1,0,"#FE9925"),Block(0,0,"#FE9925"),] #L
+            blocks = [Block(-1,-2,iro.senClore(self,self.shape)),Block(-1,-1,iro.senClore(self,self.shape)),Block(-1,0,iro.senClore(self,self.shape)),Block(0,0,iro.senClore(self,self.shape)),] #L
         elif(self.shape == 4):
-            blocks = [Block(0,-2,"#264D86"),Block(0,-1,"#264D86"),Block(-1,0,"#264D86"),Block(0,0,"#264D86"),] #J
+            blocks = [Block(0,-2,iro.senClore(self,self.shape)),Block(0,-1,iro.senClore(self,self.shape)),Block(-1,0,iro.senClore(self,self.shape)),Block(0,0,iro.senClore(self,self.shape)),] #J
         elif(self.shape == 5):
-            blocks = [Block(-1,-1,"#F8DA00"),Block(-1,0,"#F8DA00"),Block(0,0,"#F8DA00"),Block(0,-1,"#F8DA00"),] #o
+            blocks = [Block(-1,-1,iro.senClore(self,self.shape)),Block(-1,0,iro.senClore(self,self.shape)),Block(0,0,iro.senClore(self,self.shape)),Block(0,-1,iro.senClore(self,self.shape)),] #o
         elif(self.shape == 6):
-            blocks = [Block(-2,0,"#0094B0"),Block(-1,0,"#0094B0"),Block(0,0,"#0094B0"),Block(1,0,"#0094B0"),] #I
+            blocks = [Block(-2,0,iro.senClore(self,self.shape)),Block(-1,0,iro.senClore(self,self.shape)),Block(0,0,iro.senClore(self,self.shape)),Block(1,0,iro.senClore(self,self.shape)),] #I
         
 
         
