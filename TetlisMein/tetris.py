@@ -13,17 +13,17 @@ class iro :
         if iro == 0:
             return "#6830D1"
         elif iro == 1:
-            return iro.senClore(self,self.shape)
+            return "#6830D1"
         elif iro == 2:
-            return iro.senClore(self,self.shape)
+            return "#6830D1"
         elif iro == 3:
-            return iro.senClore(self,self.shape)
+            return "#6830D1"
         elif iro == 4:
-            return iro.senClore(self,self.shape)
+            return "#6830D1"
         elif iro == 5:
-            return iro.senClore(self,self.shape)
+            return "#6830D1"
         elif iro == 6:
-            return iro.senClore(self,self.shape)
+            return "#6830D1"
         elif iro == 20:
             return "#232F93"
 
